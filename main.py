@@ -28,7 +28,7 @@ camnum = 1
 
 
 # Initalize variables
-frames = np.zeros(720, 480)
+frame = np.zeros(720, 480)
 frame_mask = frames
 
 # Connect to RoboRIO via networktable
@@ -41,7 +41,7 @@ starttime = oldtime
 
 while cv2.waitKey(1) and 0xff == ord('q'):
     # open eyes
-    frames[x] = cam.getCurrentFrameResized(720, 480)
+    frame = cam.getCurrentFrameResized(720, 480)
 
     # ignore irrelevant colors
     frame_mask[camnum] = cv2.inRange(frame, lower, upper)
@@ -49,7 +49,7 @@ while cv2.waitKey(1) and 0xff == ord('q'):
     offset = detect.track_range(frame_mask[camnum])
 
     print(offset[0])
-    cv2.imshow(str(camnum), frames[camnum])
+    cv2.imshow(str(camnum), offset[1])
 
     currenttime = time.time() * 100
     visionTable.putNumber("offset", float(offset[0]))
