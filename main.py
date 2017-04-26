@@ -39,7 +39,7 @@ oldtime = time.time() * 1000
 sequence = 0
 starttime = oldtime
 
-while True:
+while cv2.waitKey(1) and 0xff == ord('q'):
     # open eyes
     frames[x] = cam.getCurrentFrameResized(720, 480)
 
@@ -59,8 +59,5 @@ while True:
     oldtime = currenttime
 
     sequence += 1
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
 
 Utils.cleanUp()
